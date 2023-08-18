@@ -18,6 +18,10 @@ public class PascalsTriangle {
     public static void main(String[] args) {
         System.out.println(generate(5));
         System.out.println(generate(10));
+        System.out.println("-------------------------------");
+        System.out.println(getRow(8));
+        System.out.println(getRow(9));
+        System.out.println(getRow(10));
     }
     public static List<List<Integer>> generate(int numRows) {
         List<List<Integer>> pascalsTriangle = new LinkedList<>();
@@ -36,5 +40,27 @@ public class PascalsTriangle {
             }
         }
         return pascalsTriangle;
+    }
+
+    /**
+     * Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle.
+     */
+    public static List<Integer> getRow(int rowIndex) {
+        List<List<Integer>> pascalsTriangle = new LinkedList<>();
+        List<Integer> temp;
+        pascalsTriangle.add(new ArrayList<>());
+        pascalsTriangle.get(0).add(1);
+        for (int i = 1; i <= rowIndex; i++) {
+            pascalsTriangle.add(new ArrayList<>());
+            temp = pascalsTriangle.get(i-1);
+            for (int j = 0; j <=temp.size(); j++) {
+                if (j == 0 || j == temp.size()){
+                    pascalsTriangle.get(i).add(1);
+                } else {
+                    pascalsTriangle.get(i).add(temp.get(j-1) + temp.get(j));
+                }
+            }
+        }
+        return pascalsTriangle.get(rowIndex);
     }
 }
